@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</head>
+<body>
+<!-- The drawer is always open in large screens. The header is always shown,
+  even in small screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+            mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <div class="mdl-layout-spacer"></div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+                <label class="mdl-button mdl-js-button mdl-button--icon"
+                       for="fixed-header-drawer-exp">
+                    <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield__expandable-holder">
+                    <input class="mdl-textfield__input" type="text" name="sample"
+                           id="fixed-header-drawer-exp">
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Title</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+        </nav>
+    </div>
+
+<style>
+    .mdl-grid {
+        padding: 1em;
+        background-color: darkgray;
+    }
+    .mdl-cell {
+        background-color: white;
+
+    }
+</style>
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--4-col">4</div>
+                <div class="mdl-cell mdl-cell--4-col">4</div>
+                <div class="mdl-cell mdl-cell--4-col">4</div>
+            </div>
+
+<style>
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    #map {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .category {
+        width: 100%;
+
+    }
+    .page {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        background-color: pink;
+
+    }
+
+
+</style>
+
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                    <div id="map"></div>
+                </div>
+            </div>
+
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c186d7099196be0d067b3adb1e37281"></script>
+            <script>
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                    mapOption = {
+                        center: new kakao.maps.LatLng(37.50309390620832, 127.02429678459076), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };
+
+                // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+                var map = new kakao.maps.Map(mapContainer, mapOption);
+            </script>
+
+
+            <!--    // 여러개 마커 생성-->
+            <script>
+                // 마커를 표시할 위치와 title 객체 배열입니다
+                var positions = [
+                    {
+                        title: '맨야시노기',
+                        latlng: new kakao.maps.LatLng(37.503888, 127.020795)
+                    },
+                    {
+                        title: '비트캠프',
+                        latlng: new kakao.maps.LatLng(37.50309390620832, 127.02429678459076)
+                    },
+                    {
+                        title: '후쿠짱',
+                        latlng: new kakao.maps.LatLng(37.503730971941636, 127.02164916094035)
+                    },
+
+                ];
+
+                // 마커 이미지의 이미지 주소입니다
+                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+                // 별도의 함수로 빼는 방법 -> 중간에 하나의 고리함수를 만들어주는 것
+                // function addEvent(info , mk){
+                //     console.log(info , mk);
+                //     // 마커에 click 이벤트를 등록하고 클릭 시 인포윈도우를 표시합니다
+                //     kakao.maps.event.addListener(mk, 'click', function() {
+                //         info.open(map, mk);
+                //     });
+                // }
+
+                for (var i = 0; i < positions.length; i ++) {
+
+                    // 마커 이미지의 이미지 크기 입니다
+                    var imageSize = new kakao.maps.Size(24, 35);
+
+                    // 마커 이미지를 생성합니다
+                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+                    // 마커를 생성합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map, // 마커를 표시할 지도
+                        position: positions[i].latlng, // 마커를 표시할 위치
+                        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                        image : markerImage // 마커 이미지
+                    });
+
+                    // 마커에 표시할 인포윈도우를 생성합니다
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: positions[i].title // 인포윈도우에 표시할 내용
+                    });
+                    // 루프를 돌면서 addEvent 호출 ( 별도에 함수로 뺄 때 사용 )
+                    // addEvent(infowindow , marker);
+
+                    // infowindow와 marker를 지역변수로 만들기 위한 즉시실행 함수
+                    (function (info,mk){
+                        kakao.maps.event.addListener(mk, 'click', function() {
+                            info.open(map, mk);
+                            setTimeout(function (){
+                                info.close();
+                            },1000);
+                        });
+                    })(infowindow,marker);
+
+                    // // 마커에 click 이벤트를 등록하고 클릭 시 인포윈도우를 표시합니다
+                    // kakao.maps.event.addListener(marker, 'click', function() {
+                    //     infowindow.open(map, marker);
+                    // });
+
+                }
+
+            </script>
+
+
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col container">
+                        <!--카드만들어 넣기-->
+                    <div class="demo-card-event mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <h4>
+                                Featured event:<br>
+                                May 24, 2016<br>
+                                7-11pm
+                            </h4>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                Add to Calendar
+                            </a>
+                            <div class="mdl-layout-spacer"></div>
+                            <i class="material-icons">event</i>
+                        </div>
+                    </div>
+
+                    <div class="demo-card-event mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <img src="img/1.png" class="category">
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                피자
+                            </a>
+                            <div class="mdl-layout-spacer"></div>
+                            <i class="material-icons">event</i>
+                        </div>
+                    </div>
+
+                    <div class="demo-card-event mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <h4>
+                                Featured event:<br>
+                                May 24, 2016<br>
+                                7-11pm
+                            </h4>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                Add to Calendar
+                            </a>
+                            <div class="mdl-layout-spacer"></div>
+                            <i class="material-icons">event</i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col ">
+                <table class="mdl-data-table mdl-data-table--selectable mdl-shadow--2dp mdl-cell--12-col" >
+                    <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">StoreList</th>
+                        <th>Quantity</th>
+                        <th>Unit price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+                        <td>25</td>
+                        <td>$2.90</td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                        <td>50</td>
+                        <td>$1.25</td>
+                    </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                        <td>10</td>
+                        <td>$2.35</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="page">
+                <!-- Primary-colored flat button -->
+                <button class="mdl-button mdl-js-button mdl-button--primary">
+                    prev
+                </button>
+                <!-- Accent-colored flat button -->
+                <button class="mdl-button mdl-js-button mdl-button--accent">
+                    page
+                </button>
+                <!-- Primary-colored flat button -->
+                <button class="mdl-button mdl-js-button mdl-button--primary">
+                    next
+                </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+</body>
+</html>
