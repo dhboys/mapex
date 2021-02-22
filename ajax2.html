@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button class="btn">GET Weather</button>
+<div id="demo"></div>
+
+<script>
+
+    // ajax 데이터 가져오기
+
+    document.querySelector(".btn")
+        .addEventListener("click", function (e) {
+            console.log("clicked.........");
+            // loadDoc();
+
+            // 변수를 밖에 선언하고 내부에서 사용할 수 있다 ( 클로저 )
+            var demo = document.querySelector("#demo");
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+
+                console.log(this);
+
+                if (this.readyState == 4 && this.status == 200) {
+                    // 외부에 있는 변수를 사용할 수 있다 ( 클로저 )
+                    demo.innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "list.html", true);
+            xhttp.send();
+
+        }, false);
+
+
+</script>
+</body>
+</html>

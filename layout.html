@@ -81,7 +81,13 @@
         background-color: pink;
 
     }
-
+    .btnContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
 
 </style>
 
@@ -91,96 +97,30 @@
                 </div>
             </div>
 
-            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c186d7099196be0d067b3adb1e37281"></script>
-            <script>
-                var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-                    mapOption = {
-                        center: new kakao.maps.LatLng(37.50309390620832, 127.02429678459076), // 지도의 중심좌표
-                        level: 3 // 지도의 확대 레벨
-                    };
-
-                // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-                var map = new kakao.maps.Map(mapContainer, mapOption);
-            </script>
 
 
-            <!--    // 여러개 마커 생성-->
-            <script>
-                // 마커를 표시할 위치와 title 객체 배열입니다
-                var positions = [
-                    {
-                        title: '맨야시노기',
-                        latlng: new kakao.maps.LatLng(37.503888, 127.020795)
-                    },
-                    {
-                        title: '비트캠프',
-                        latlng: new kakao.maps.LatLng(37.50309390620832, 127.02429678459076)
-                    },
-                    {
-                        title: '후쿠짱',
-                        latlng: new kakao.maps.LatLng(37.503730971941636, 127.02164916094035)
-                    },
+            <div class="btnContainer">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" data-idx="s1">
+                    한식
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" data-idx="s2">
+                    양식
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" data-idx="s3">
+                    분식
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" data-idx="s4">
+                    일식
+                </button>
+            </div>
 
-                ];
+            <ul class="listContainer">
 
-                // 마커 이미지의 이미지 주소입니다
-                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-
-                // 별도의 함수로 빼는 방법 -> 중간에 하나의 고리함수를 만들어주는 것
-                // function addEvent(info , mk){
-                //     console.log(info , mk);
-                //     // 마커에 click 이벤트를 등록하고 클릭 시 인포윈도우를 표시합니다
-                //     kakao.maps.event.addListener(mk, 'click', function() {
-                //         info.open(map, mk);
-                //     });
-                // }
-
-                for (var i = 0; i < positions.length; i ++) {
-
-                    // 마커 이미지의 이미지 크기 입니다
-                    var imageSize = new kakao.maps.Size(24, 35);
-
-                    // 마커 이미지를 생성합니다
-                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-                    // 마커를 생성합니다
-                    var marker = new kakao.maps.Marker({
-                        map: map, // 마커를 표시할 지도
-                        position: positions[i].latlng, // 마커를 표시할 위치
-                        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                        image : markerImage // 마커 이미지
-                    });
-
-                    // 마커에 표시할 인포윈도우를 생성합니다
-                    var infowindow = new kakao.maps.InfoWindow({
-                        content: positions[i].title // 인포윈도우에 표시할 내용
-                    });
-                    // 루프를 돌면서 addEvent 호출 ( 별도에 함수로 뺄 때 사용 )
-                    // addEvent(infowindow , marker);
-
-                    // infowindow와 marker를 지역변수로 만들기 위한 즉시실행 함수
-                    (function (info,mk){
-                        kakao.maps.event.addListener(mk, 'click', function() {
-                            info.open(map, mk);
-                            setTimeout(function (){
-                                info.close();
-                            },1000);
-                        });
-                    })(infowindow,marker);
-
-                    // // 마커에 click 이벤트를 등록하고 클릭 시 인포윈도우를 표시합니다
-                    // kakao.maps.event.addListener(marker, 'click', function() {
-                    //     infowindow.open(map, marker);
-                    // });
-
-                }
-
-            </script>
-
+            </ul>
 
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--12-col container">
-                        <!--카드만들어 넣기-->
+                    <!--카드만들어 넣기-->
                     <div class="demo-card-event mdl-card mdl-shadow--2dp">
                         <div class="mdl-card__title mdl-card--expand">
                             <h4>
@@ -189,9 +129,9 @@
                                 7-11pm
                             </h4>
                         </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                                Add to Calendar
+                        <div class="mdl-card__actions mdl-card--border" >
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" >
+                                <button data-idx="s1">한식</button>
                             </a>
                             <div class="mdl-layout-spacer"></div>
                             <i class="material-icons">event</i>
@@ -238,16 +178,16 @@
                 <table class="mdl-data-table mdl-data-table--selectable mdl-shadow--2dp mdl-cell--12-col" >
                     <thead>
                     <tr>
-                        <th class="mdl-data-table__cell--non-numeric">StoreList</th>
+                        <th class="mdl-data-table__cell--non-numeric">Material</th>
                         <th>Quantity</th>
                         <th>Unit price</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
-                        <td>25</td>
-                        <td>$2.90</td>
+                    <tr class="listContainer">
+                        <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                        <td>50</td>
+                        <td>$1.25</td>
                     </tr>
                     <tr>
                         <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
@@ -262,21 +202,222 @@
                     </tbody>
                 </table>
                 <div class="page">
-                <!-- Primary-colored flat button -->
-                <button class="mdl-button mdl-js-button mdl-button--primary">
-                    prev
-                </button>
-                <!-- Accent-colored flat button -->
-                <button class="mdl-button mdl-js-button mdl-button--accent">
-                    page
-                </button>
-                <!-- Primary-colored flat button -->
-                <button class="mdl-button mdl-js-button mdl-button--primary">
-                    next
-                </button>
+                    <!-- Primary-colored flat button -->
+                    <button class="mdl-button mdl-js-button mdl-button--primary">
+                        prev
+                    </button>
+                    <!-- Accent-colored flat button -->
+                    <button class="mdl-button mdl-js-button mdl-button--accent">
+                        page
+                    </button>
+                    <!-- Primary-colored flat button -->
+                    <button class="mdl-button mdl-js-button mdl-button--primary">
+                        next
+                    </button>
                 </div>
             </div>
         </div>
+
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c186d7099196be0d067b3adb1e37281"></script>
+            <script>
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                    mapOption = {
+                        center: new kakao.maps.LatLng(37.50309390620832, 127.02429678459076), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };
+
+                // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+                var map = new kakao.maps.Map(mapContainer, mapOption);
+
+                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+                map.markArr = [];
+
+
+            </script>
+
+            <script>
+                // btnContainer에 이벤트를 걸어준다 ( 큰 범위 )
+                document.querySelector(".btnContainer")
+                    .addEventListener("click", function (e) {
+
+                        var btn = e.target;
+                        var targetFile = btn.getAttribute("data-idx") + ".json";
+                        // console.log(targetFile);
+
+                        var ul = document.querySelector("ul");
+
+                        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+                        // 마커 이미지의 이미지 크기 입니다
+                        var imageSize = new kakao.maps.Size(24, 35);
+
+                        // 마커 이미지를 생성합니다
+                        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+                        // ajax로 얻어온 json 데이터를 뿌려준다
+
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function () {
+
+                            // console.log(this);
+
+                            if (this.readyState == 4 && this.status == 200) {
+
+                                clearMarkers();
+
+                                var str = this.responseText;
+                                console.log(str);
+                                // 문자열(json)을 JS의 object로 바꾸는 코드
+                                var arr = JSON.parse(str);
+
+                                makeMarkers(arr);
+
+                                console.log(arr);
+                                // 한꺼번에 문자열을 만들어서 한 번에 dom처리
+                                var temp = "";
+                                for (const store of arr) {
+                                    temp += "<li data-lat='"+store.lat+"' data-lng='"+store.lng+"' data-name='"+store.name+"'> "+store.name+ "</li>";
+
+                                    // var markerPosition  = new kakao.maps.LatLng(store.lat, store.lng);
+                                    //
+                                    // // 마커를 생성합니다
+                                    // var marker = new kakao.maps.Marker({
+                                    //     position: markerPosition,
+                                    //     image : markerImage
+                                    // });
+                                    //
+                                    // // 마커가 지도 위에 표시되도록 설정합니다
+                                    // marker.setMap(map);
+                                } // end for
+
+
+                                ul.innerHTML = temp;
+
+
+
+                            }
+                        };
+
+                        xhttp.open("GET", targetFile, true);
+                        xhttp.send();
+
+                    }, false);
+
+                //document...All(".listContainer li").forEach(e => { e.addEventListener() }) - 이벤트가 추가되지 않는다.
+                // -> Dom이 완성되지 않았기 때문에 li가 추가 되지 않았기 때문이다.
+                //document...Selector(".listContainer").forEach(e => { e.addEventListener() }) - 이벤트가 추가된다.
+
+                document.querySelector(".listContainer")
+                    .addEventListener("click" , function (e){
+
+                        var liTarget = e.target;
+                        var lat = liTarget.getAttribute("data-lat");
+                        var lng = liTarget.getAttribute("data-lng");
+                        var name = liTarget.getAttribute("data-name");
+
+                        console.log(lat , lng , name);
+
+                        var moveLatLon = new kakao.maps.LatLng(lat, lng);
+
+                        // 지도 중심을 부드럽게 이동시킵니다
+                        // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+                        map.panTo(moveLatLon);
+
+                        // var markerPosition  = new kakao.maps.LatLng(lat, lng);
+                        //
+                        // // 마커를 생성합니다
+                        // var marker = new kakao.maps.Marker({
+                        //     position: markerPosition
+                        // });
+                        //
+                        // // 마커가 지도 위에 표시되도록 설정합니다
+                        // marker.setMap(map);
+
+                        //과제: 마커 표시하고 사라지는 것 추가하면 된다.
+                        // 맛집 프로젝트 아이디어 제공 - 아무것도 안한다, 가지고 달리기만 하면 된다.
+                        //1. ??? 2. 사용자가 점심시간에만 위치정보를 제공한다. 위치정보를 기반으로 가게를 찾아서 맛집 정보를 등록한다. - 3. 특정 장소에서 전파가 많이 잡힌다. - 사람들이 많이 간다, 맛집인정
+                        //cf.수많은 다이어트 앱이 망하는 이유: 인간은 진실을 마주하는 것을 꺼려한다. 먹은 것을 입력하는 순간을 피하게 된다.
+
+                    },false);
+
+
+                function clearMarkers(){
+                    for (const marker of map.markArr) {
+                        marker.setMap(null);
+                    }
+                    map.markArr = [];
+                }
+
+
+                function makeMarkers(arr) {
+                    // marker를 let으로
+                    for (const store of arr) {
+
+                        var imageSize = new kakao.maps.Size(24, 35);
+
+                        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+                        let marker = new kakao.maps.Marker({
+                            map: map, // 마커를 표시할 지도
+                            position: new kakao.maps.LatLng(store.lat,store.lng), // 마커를 표시할 위치
+                            title: store.name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                            image: markerImage // 마커 이미지
+                        });
+                        map.markArr.push(marker);
+
+                        let iwContent = '<div style="padding:5px;"></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                            iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+                        // 인포윈도우를 생성합니다
+                        var infowindow = new kakao.maps.InfoWindow({
+                            content : store.name,
+                        });
+                        // 클로저 필요
+                        // 마커에 클릭이벤트를 등록합니다
+                        (function makeInfo(info,mk) {
+                            kakao.maps.event.addListener(mk, 'click', function() {
+                                // 마커 위에 인포윈도우를 표시합니다
+                                info.open(map, mk);
+                                setTimeout(function (){info.close();} , 1000);
+                            });
+                        })(infowindow,marker);
+
+                        // 커스텀 오버레이
+                        // var position = new kakao.maps.LatLng(store.lat, store.lng);
+                        //
+                        // var content = '<div class="overlaybox">' +
+                        //     '    <div class="boxtitle">금주 영화순위</div>' +
+                        //     '    <div class="first">' +
+                        //     '        <div class="triangle text">1</div>' +
+                        //     '        <div class="movietitle text">드래곤 길들이기2</div>' +
+                        //     '    </div>'
+                        //     '    </div>'
+                        //
+                        // // 커스텀 오버레이를 생성합니다
+                        // var customOverlay = new kakao.maps.CustomOverlay({
+                        //     position: position,
+                        //     content: content,
+                        //     xAnchor: 0.3,
+                        //     yAnchor: 0.91
+                        // });
+                        //
+                        // // 커스텀 오버레이를 지도에 표시합니다
+                        // customOverlay.setMap(map);
+
+                    }
+
+                }
+
+
+
+
+            </script>
+
+
+
+
+
 
     </main>
 </div>

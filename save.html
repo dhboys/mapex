@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    function piggySave() {
+
+        var total = 0;
+
+        function add(money) {
+            total += money;
+        }
+
+        function show() {
+            console.log("total: " + total);
+        }
+        // 키 값으로 저장
+        return {add:add,show:show}
+    }
+
+    // 마치 클래스처럼 사용할 수 있다
+    function  Piggy() {
+        this.total = 0;
+
+        this.add = function add(money) {
+            this.total += money;
+        }
+        this.show = function show() {
+            console.log("total: "+total);
+        }
+    }
+
+    var s1 = piggySave();
+
+    var s2 = new Piggy();
+
+    s1.add(100);
+    s1.add(200);
+    s1.show();
+
+</script>
+
+
+</body>
+</html>

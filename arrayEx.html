@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button>btn</button>
+
+    <script>
+
+        window.name = 'zzz';
+        // 배열을 만드는 법 2가지
+        // var arr = [];
+        // var arr = new Array();
+
+        // 배열 만드는 첫번째 방법
+        var arr = new Array();
+
+        arr.push("AAA");
+        arr.push("BBB");
+        arr.push("CCC");
+
+        console.dir(arr);
+        // 전통적인 접근 방식
+        console.log(arr[0]);
+        // JS만의 방식 -> 인덱스가 아닌 '키'라고 생각
+        console.log(arr["0"]);
+
+        //////////////////////////////////////////////////////////////////////
+
+        // 객체 만드는 방법
+        // var obj = {};
+        // obj.name = "Hong";
+        // obj.age = 16;
+
+        // 객체를 선언하는 방법은
+        // 1. 객체리터럴 2.생성자 함수
+
+        // 객체 리터럴
+        // name 선언 안하고 obj.showName()하면 실행될 때 name선언되어 undefined
+        var obj = {name: "Hong" , age:16};
+
+        function showName(){
+
+           console.log(this.name);
+           // name = "show";
+        }
+        // obj의 showName이란 키에 showName 함수를 값으로 집어넣었다
+        obj.showName = showName;
+
+        console.log(obj);
+        console.dir(obj);
+
+        console.log('---------------------');
+
+        showName();
+
+        obj.showName();
+
+
+        document.querySelector("button")
+            .addEventListener("click" , showName , false);
+
+
+
+    </script>
+</body>
+</html>
